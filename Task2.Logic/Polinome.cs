@@ -12,10 +12,12 @@ namespace Task2.Logic
 
         private double[] coeffs;
 
+
         public Polinome()
         {
             coeffs = new double[INITIAL_SIZE];
         }
+
 
         public Polinome(int initialSize)
         {
@@ -31,7 +33,17 @@ namespace Task2.Logic
 
 
 
+        public Polinome(params double[] coefficients)
+        {
+            coeffs = new double[coefficients.Length];
 
+            for (int i = 0; i < coefficients.Length; i++)
+            {
+                coeffs[i] = coefficients[i];
+            }
+
+            MaxNonZeroValueIndex = coeffs.Length;
+        }
 
 
 
@@ -49,7 +61,7 @@ namespace Task2.Logic
         {
             get
             {
-                if (index > 0)
+                if (index >= 0)
                 {
                     if (index > MaxNonZeroValueIndex)
                     {
@@ -68,7 +80,7 @@ namespace Task2.Logic
 
             set
             {
-                if (index > 0)
+                if (index >= 0)
                 {
                     coeffs[index] = value;
                     if (index > MaxNonZeroValueIndex)
@@ -146,13 +158,15 @@ namespace Task2.Logic
             else
                 power = second.MaxNonZeroValueIndex;
 
-            Polinome result = new Polinome(power);
+            Polinome result = new Polinome(power + power);
 
             for (int i = 0; i < power; i++)
             {
                 for (int j = 0, pos = i; j < power; j++, pos++)
                 {
-                    result[pos] += first[i] * second[j];
+                    result[pos] = result[pos] +  (first[i] * second[j]);
+
+                    if (result.MaxNonZeroValueIndex < pos) result.MaxNonZeroValueIndex = pos;
                 }
             }
 
@@ -163,9 +177,11 @@ namespace Task2.Logic
         {
             StringBuilder sb = new StringBuilder(8 * MaxNonZeroValueIndex);
 
-            for (int i = 0; i < MaxNonZeroValueIndex; i++)
+            sb.Append(this[0].ToString());
+
+            for (int i = 1; i <= MaxNonZeroValueIndex; i++)
             {
-                sb.Append(this[i].ToString() + "x^" + i.ToString());
+                sb.Append(this[i].ToString("+00;-00;+00") + "x^" + i.ToString());
             }
             return sb.ToString();
         }
