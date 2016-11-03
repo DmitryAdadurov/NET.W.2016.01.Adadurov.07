@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task2.Logic
 {
+    /// <summary>
+    /// Represents polynomial
+    /// </summary>
     public class Polinome
     {
         private const int INITIAL_SIZE = 16;
@@ -19,6 +22,10 @@ namespace Task2.Logic
         }
 
 
+        /// <summary>
+        /// Creates polynomial representation
+        /// </summary>
+        /// <param name="initialSize">Count of arguments</param>
         public Polinome(int initialSize)
         {
             if (initialSize > 0)
@@ -32,7 +39,10 @@ namespace Task2.Logic
         }
 
 
-
+        /// <summary>
+        /// Creates polynomial representation
+        /// </summary>
+        /// <param name="coefficients">Array of coefficients. Lower index means lower degree of x.</param>
         public Polinome(params double[] coefficients)
         {
             coeffs = new double[coefficients.Length];
@@ -47,7 +57,9 @@ namespace Task2.Logic
 
 
 
-
+        /// <summary>
+        /// Power of polynomial
+        /// </summary>
         public int MaxNonZeroValueIndex { get; private set; }
 
 
@@ -173,6 +185,11 @@ namespace Task2.Logic
             return result;
         }
 
+
+        /// <summary>
+        /// Polynomial string.
+        /// </summary>
+        /// <returns>String with polynomial.</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder(8 * MaxNonZeroValueIndex);
